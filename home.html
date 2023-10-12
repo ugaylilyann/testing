@@ -8,6 +8,7 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="private/js/script.js"></script>
+    <script src="private/js/adisplay.js"></script>
     <script src=""></script>
 </head>
 
@@ -28,7 +29,7 @@
             </button>
         </div>
     </div>
-    <div class="w3-container">
+    <div class="w3-container w3-text-white">
         <table class="w3-table w3-border-white w3-centered">
             <thead>
                 <th>ID</th>
@@ -42,28 +43,27 @@
         </table>
     </div>
 
-
-    <div id="editUser" class="w3-modal w3-padding-64">
+    <div id="addUser" class="w3-modal w3-padding-64">
         <div class="w3-modal-content w3-container w3-text-black w3-padding-16 w3-round-large">
-            <button id="closeModal" class="w3-button w3-right w3-red w3-round-large">
+            <button id="addcloseModal" class="w3-button w3-right w3-red w3-round-large">
                 <span class="fas fa-times"></span>
             </button>
-            <form id="updateAPI" enctype="multipart/form-data" method="post">
-                <header class="w3-container w3-xlarge w3-padding-16 w3-center">Edit Profile</header>
-                <div class="w3-container w3-padding-16">
-                    <div class="w3-half">
-                        <label for="upfname">First Name</label>
-                    </div>
-                    <div class="w3-half">
-                        <input id="uplname" type="text" class="w3-input w3-border">
-                    </div>
-                </div>
+            <form id="addAPI" enctype="multipart/form-data" method="post">
+                <header class="w3-container w3-xlarge w3-padding-16 w3-center">Create Profile</header>
                 <div class="w3-container w3-padding-16">
                     <div class="w3-half">
                         <label for="upfname">Last Name</label>
                     </div>
                     <div class="w3-half">
-                        <input id="upfname" type="text" class="w3-input w3-border">
+                        <input name="lname" type="text" class="w3-input w3-border">
+                    </div>
+                </div>
+                <div class="w3-container w3-padding-16">
+                    <div class="w3-half">
+                        <label for="fname">First Name</label>
+                    </div>
+                    <div class="w3-half">
+                        <input name="fname" type="text" class="w3-input w3-border">
                     </div>
                 </div>
                 <div class="w3-container w3-padding-16">
@@ -71,7 +71,7 @@
                         <label for="upfname">Middle Name</label>
                     </div>
                     <div class="w3-half">
-                        <input id="upmname" type="text" class="w3-input w3-border">
+                        <input name="mname" type="text" class="w3-input w3-border">
                     </div>
                 </div>
                 <div class="w3-container w3-padding-16">
@@ -79,7 +79,7 @@
                         <label for="upfname">Username</label>
                     </div>
                     <div class="w3-half">
-                        <input id="upusername" type="text" class="w3-input w3-border">
+                        <input name="username" type="text" class="w3-input w3-border">
                     </div>
                 </div>
                 <div class="w3-container w3-padding-16">
@@ -87,15 +87,83 @@
                         <label for="upfname">Password</label>
                     </div>
                     <div class="w3-half">
-                        <input id="uppassword" type="password" class="w3-input w3-border">
+                        <input name="password" type="password" class="w3-input w3-border">
                     </div>
                 </div>
                 <footer class="w3-panel">
                     <div class="w3-half w3-container">
-                        <button id="delete" class="w3-button w3-red w3-bar">Delete User</button>
+                        <button type="reset" class="w3-button w3-red w3-bar">Reset</button>
                     </div>
                     <div class="w3-half w3-container">
-                        <button id="update" class="w3-button w3-green w3-bar">Update User</button>
+                        <button type="submit" class="w3-button w3-green w3-bar">Create User User</button>
+                    </div>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <div id="editUser" class="w3-modal w3-padding-64">
+        <div class="w3-modal-content w3-container w3-text-black w3-padding-16 w3-round-large">
+            <button id="editcloseModal" class="w3-button w3-right w3-red w3-round-large">
+                <span class="fas fa-times"></span>
+            </button>
+
+            <form id="updateAPI" enctype="multipart/form-data" method="post">
+                <header class="w3-container w3-xlarge w3-padding-16 w3-center">Edit Profile</header>
+                <div class="w3-container w3-padding-16">
+                    <div class="w3-half">
+                        <label for="upfname">ID</label>
+                    </div>
+                    <div class="w3-half">
+                        <input name="upID" type="text" class="w3-input w3-border" disabled>
+                    </div>
+                </div>
+                <div class="w3-container w3-padding-16">
+                    <div class="w3-half">
+                        <label for="upfname">Last Name</label>
+                    </div>
+                    <div class="w3-half">
+                        <input name="uplname" type="text" class="w3-input w3-border">
+                    </div>
+                </div>
+                <div class="w3-container w3-padding-16">
+                    <div class="w3-half">
+                        <label for="upfname">First Name</label>
+                    </div>
+                    <div class="w3-half">
+                        <input name="upfname" type="text" class="w3-input w3-border">
+                    </div>
+                </div>
+                <div class="w3-container w3-padding-16">
+                    <div class="w3-half">
+                        <label for="upfname">Middle Name</label>
+                    </div>
+                    <div class="w3-half">
+                        <input name="upmname" type="text" class="w3-input w3-border">
+                    </div>
+                </div>
+                <div class="w3-container w3-padding-16">
+                    <div class="w3-half">
+                        <label for="upfname">Username</label>
+                    </div>
+                    <div class="w3-half">
+                        <input name="upusername" type="text" class="w3-input w3-border">
+                    </div>
+                </div>
+                <div class="w3-container w3-padding-16">
+                    <div class="w3-half">
+                        <label for="upfname">Password</label>
+                    </div>
+                    <div class="w3-half">
+                        <input name="uppassword" type="password" class="w3-input w3-border">
+                    </div>
+                </div>
+                <footer class="w3-panel">
+                    <div class="w3-half w3-container">
+                        <button type="button" id="delete" class="w3-button w3-red w3-bar">Delete User</button>
+                    </div>
+                    <div class="w3-half w3-container">
+                        <button type="submit" id="update" class="w3-button w3-green w3-bar">Update User</button>
                     </div>
                 </footer>
             </form>
@@ -116,6 +184,26 @@
         </div>
     </div>
 
+    <div id="delSuccess" class="w3-modal w3-padding-64">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4" style="width:40em">
+            <div class="w3-container w3-center w3-padding-32">
+                <div class="w3-panel">
+                    <span class="far fa-check-circle" style="font-size: 100px; color:green"></span>
+                </div>
+                <div class="w3-panel w3-xxlarge">Name Successfully Updated</div>
+            </div>
+        </div>
+    </div>
+    <div id="delFailed" class="w3-modal w3-padding-64">
+        <div class="w3-modal-content w3-animate-zoom w3-card-4" style="width:40em">
+            <div class="w3-container w3-center w3-padding-32">
+                <div class="w3-panel"><span class="far fa-times-circle" style="font-size: 100px; color:red"></span>
+                </div>
+                <div class="w3-panel w3-xxlarge">Name Unable to Update</div>
+                <div class="w3-panel w3-large">Please Try Again</div>
+            </div>
+        </div>
+    </div>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Nunito'>

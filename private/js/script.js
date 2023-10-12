@@ -1,40 +1,38 @@
 $(document).ready(function () {
 
-    $.ajax({
-        type: "POST",
-        url: "public/point/display",
-        success: function (data) {
-            var json = JSON.parse(data);
-            var row = "";
-            var number = 1;
-            for (var i = 0; i < json.data.length; i++) {
-                row = row + "<tr><td>" +
-                    number + "</td><td>" +
-                    json.data[i].fname + " " + json.data[i].mname + " " + json.data[i].lname + " " + "</td><td>" +
-                    json.data[i].username + "</td><td>" +
-                    json.data[i].password + "</td></tr>";
-                number++;
+    $(document).on('submit', '#addAPI', function (event) {
+        event.preventDefault();
+        var fname = $('input[name=fname]').val();
+        var lname = $('input[name=lname]').val();
+        var mname = $('input[name=mname]').val();
+        var username = $('input[name=username]').val();
+        var password = $('input[name=password]').val();
+        $.ajax({
+            type: "POST",
+            url: "public/point/add",
+            data: JSON.stringify({
+                fname: fname,
+                mname: mname,
+                lname: lname,
+                username: username,
+                password: password
+            }),
+            success: function (response) {
+                if (response === "success") {
+                    $("#addSuccess").show();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    $("#addFailed").show();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                }
             }
-            $("#dataBody").get(0).innerHTML = row;
-        }
+        });
     });
-    /* $.ajax({
-        type: "POST",
-        url: "../public/point_1",
-        data: JSON.stringify({
 
-        }),
-        success: function (response) {
-            if (response === 'success') {
-                alert("Action Success");
-            } else {
-                alert("Action Failed. PLease Try Again");
-            }
-            setTimeout(function () {
-                location.reload();
-            }, 1000);
-        }
-    }); */
 
     $("#search").click(function () {
         var username = prompt("Please enter the Username");
@@ -53,15 +51,16 @@ $(document).ready(function () {
                     if (response === "success") {
                         $("#editUser").show();
                         var json = JSON.parse(data);
-                        $("#upfname").get(0).value = json.data[0].fname;
-                        $("#uplname").get(0).value = json.data[0].lname;
-                        $("#upmname").get(0).value = json.data[0].mname;
-                        $("#upusername").get(0).value = json.data[0].username;
-                        $("#uppassword").get(0).value = json.data[0].password;
+                        $("input[name=upID]").get(0).value = json.data[0].id;
+                        $("input[name=upfname]").get(0).value = json.data[0].fname;
+                        $("input[name=uplname]").get(0).value = json.data[0].lname;
+                        $("input[name=upmname]").get(0).value = json.data[0].mname;
+                        $("input[name=upusername]").get(0).value = json.data[0].username;
+                        $("input[name=uppassword]").get(0).value = json.data[0].password;
 
                     } else {
                         $("#editUserFail").show();
-                        
+
                         setTimeout(function () {
                             location.reload();
                         }, 1000);
@@ -72,16 +71,20 @@ $(document).ready(function () {
         }
     });
 
-    $("#update").click(function () { 
-        var fname = $("#upfname").get(0).value;
-        var lname = $("#uplname").get(0).value;
-        var mname = $("#upmname").get(0).value;
-        var username = $("#upusername").get(0).value;
-        var password = $("#uppassword").get(0).value;
+
+    $(document).on("submit", "#updateAPI", function () {
+
+        var id = $("input[name=upID]").get(0).value;
+        var fname = $("input[name=upfname]").get(0).value;
+        var lname = $("input[name=uplname]").get(0).value;
+        var mname = $("input[name=upmname]").get(0).value;
+        var username = $("input[name=upusername]").get(0).value;
+        var password = $("input[name=uppassword]").get(0).value;
         $.ajax({
             type: "POST",
-            url: "point/update",
+            url: "public/point/update",
             data: JSON.stringify({
+                id: id,
                 fname: fname,
                 mname: mname,
                 lname: lname,
@@ -89,14 +92,54 @@ $(document).ready(function () {
                 password: password
             }),
             success: function (response) {
-                
+                if (response === "success") {
+                    $("#upSuccess").show();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    $("#upFailed").show();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                }
             }
         });
     });
 
+    $("#delete").click(function () {
+        var id = $("input[name=upID]").get(0).value;
+        $.ajax({
+            type: "POST",
+            url: "public/point/delete",
+            data: JSON.stringify({
+                id: id
+            }),
+            success: function (response) {
+                if (response === "success") {
+                    $("#delSuccess").show();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                } else {
+                    $("#delFailed").show();
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+                }
+            }
+        });
+    });
+
+    $("#add").click(function () {
+        $("#addUser").show();
+    });
 
     //----------------Accessories
-    $("#closeModal").click(function () {
+    $("#editcloseModal").click(function () {
         $("#editUser").hide();
+    });
+    $("#addcloseModal").click(function () {
+        $("#addUser").hide();
     });
 });
